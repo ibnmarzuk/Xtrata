@@ -1,0 +1,6 @@
+{
+  "name": "Xtrata — The First Masterpiece",
+  "description": "An interactive Bitcoin creative experience. Ideas fade. Masterpieces live forever.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
