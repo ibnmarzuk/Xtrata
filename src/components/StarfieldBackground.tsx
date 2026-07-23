@@ -14,9 +14,10 @@ export function StarfieldBackground() {
     let height = 0;
 
     const stars: { x: number; y: number; z: number; size: number; alpha: number }[] = [];
-    const numStars = 300;
+    let numStars = 150;
 
     const initStars = () => {
+      numStars = Math.min(Math.floor(width / 5), 200);
       stars.length = 0;
       for (let i = 0; i < numStars; i++) {
         stars.push({
@@ -42,9 +43,11 @@ export function StarfieldBackground() {
 
       const cx = width / 2;
       const cy = height / 2;
+      const now = Date.now() * 0.001;
 
       for (let i = 0; i < numStars; i++) {
         const star = stars[i];
+        if (!star) continue;
 
         // Slowly drift towards the viewer
         star.z -= 0.5;
@@ -67,8 +70,8 @@ export function StarfieldBackground() {
           // Fade in based on distance
           const currentAlpha = Math.min(star.alpha, (2000 - star.z) / 1000);
           
-          // Twinkle effect
-          const twinkle = Math.sin(Date.now() * 0.001 + i) * 0.5 + 0.5;
+          // Twinkle effect (using cached precalculated time 'now' instead of multiple Date.now() calls)
+          const twinkle = Math.sin(now + i) * 0.5 + 0.5;
           
           ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha * twinkle * 0.8})`;
           ctx.beginPath();

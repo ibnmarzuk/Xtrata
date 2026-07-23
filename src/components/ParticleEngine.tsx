@@ -244,13 +244,15 @@ export function ParticleEngine({ chapter }: ParticleEngineProps) {
 
         // Connect particles
         if (state.connectDistance > 0) {
+          const connectDistanceSq = state.connectDistance * state.connectDistance;
           for (let j = i + 1; j < state.particles.length; j++) {
             const p2 = state.particles[j];
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+            const distSq = dx * dx + dy * dy;
             
-            if (dist < state.connectDistance) {
+            if (distSq < connectDistanceSq) {
+              const dist = Math.sqrt(distSq);
               const lineAlpha = (1 - dist / state.connectDistance) * 0.3 * p.alpha;
               ctx.strokeStyle = `rgba(${particleColor}, ${lineAlpha})`;
               ctx.lineWidth = 0.5;
